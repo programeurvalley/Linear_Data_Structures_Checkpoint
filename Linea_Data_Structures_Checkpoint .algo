@@ -1,0 +1,297 @@
+// find the sum of all distinct elements (Problem 1)
+// Solution 1 : Array
+ALGORITHM Problem_one_array
+VAR
+    arr : ARRAY_OF INTEGER [25]
+    set1 : ARRAY_OF INTEGER[25];
+    set2 : ARRAY_OF INTEGER[25];
+    sum , i , j , k, len1 , len2: INTEGER ;
+    check :BOOLEAN ;
+
+BEGIN
+
+    Write("Entre the length of the first set : ");
+    Read(len1);
+
+    Write("Enter  Values of Array :");
+    FOR i FROM 1 TO len STEP 1  DO
+        Write("Value ", i , " :");
+        Read(set1[i]);
+    END_FOR
+
+    Write("Entre the length of the second set : ");
+    Read(len2);
+
+    Write("Enter  Values of Array :");
+    FOR i FROM 1 TO len STEP 1  DO
+        Write("Value ", i , " :");
+        Read(set2[i]);
+    END_FOR
+
+    check := FALSE;
+
+    sum := 0;
+    k := 0;
+
+    // for compiring the element of step1 with element of step2
+    FOR i FROM 0 TO len1 STEP 1  DO
+        FOR j FROM 0 TO len2 STEP 1  DO
+            IF (step1[i] = step2[j]) THEN
+                check := TRUE;
+            END_IF
+        END_FOR
+
+        IF (check = FALSE) THEN
+            arr[k] = set1[i];
+            k := k +1 ;
+        END_IF
+
+        check := FALSE;
+    END_FOR
+
+    check := FALSE;
+
+    // for compiring the element of step2 with element of step1
+    FOR i FROM 0 TO len2 STEP 1  DO
+        FOR j FROM 0 TO len1 STEP 1  DO
+            IF (step2[i] = step1[j]) THEN
+                check := TRUE;
+            END_IF
+        END_FOR
+
+        IF (check = FALSE) THEN
+            arr[k] = set2[i];
+            k := k +1 ;
+        END_IF
+
+        check := FALSE;
+    END_FOR
+
+    FOR i FROM 0 TO arr.length STEP 1  DO
+        sum := sum + arr[i];
+    END_FOR
+
+    Write("the sum is :",sum);
+
+END
+
+// Solution 2 : Hash Table
+
+ALGORITHM Problem_one_hashtable
+VAR
+    set1 : HASH_TABLE<INTEGER,INTEGER>;
+    set2 : HASH_TABLE<INTEGER,INTEGER>;
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+    sum , i , j , k : INTEGER:
+    check : BOOLEAN;
+BEGIN
+    check := FALSE;
+
+    set1.insert(0,3);
+	set1.insert(1,1);
+	set1.insert(2,7);
+    set1.insert(3,9);
+
+    set2.insert(0,2);
+	set2.insert(1,4);
+	set2.insert(2,1);
+    set2.insert(3,9);
+    set2.insert(4,3); 
+
+    WHILE (set1.lookup(i) = TRUE) DO
+        WHILE (set2.lookup(j) = TRUE) DO
+            IF (set1.get(i) = set2.get(j)) THEN
+                check := TRUE;
+            END_IF
+            j := j +1;
+        END_WHILE
+
+        IF (check = FALSE) THEN
+            htab.insert(k,set1.get(i));
+            k := k + 1;
+        END_IF
+
+        check := FALSE;
+        i := i +1;
+
+    END_WHILE
+
+    i := 0;
+    j := 0;
+
+    WHILE (set2.lookup(i) = TRUE) DO
+        WHILE (set1.lookup(j) = TRUE) DO
+            IF (set2.get(i) = set1.get(j)) THEN
+                check := TRUE;
+            END_IF
+            j := j +1;
+        END_WHILE
+
+        IF (check = FALSE) THEN
+            htab.insert(k,set2.get(i));
+            k := k + 1;
+        END_IF
+
+        check := FALSE;
+        i := i +1;
+
+    END_WHILE
+
+    i := 0;
+
+    WHILE (htab.lookup(i) = TRUE) DO
+        sum := sum + htab.get(i);
+        i := i + 1;
+    END_WHILE
+
+    Write("the sum is :",sum);
+
+END
+
+// find the sum of all Common elements (Problem 2)
+// Solution 1 : Array
+ALGORITHM Problem_two_array
+VAR
+    arr : ARRAY_OF INTEGER [25]
+    set1 : ARRAY_OF INTEGER[25];
+    set2 : ARRAY_OF INTEGER[25];
+    sum , i , j , k, len1 , len2: INTEGER ;
+    check :BOOLEAN ;
+
+BEGIN
+
+    Write("Entre the length of the first set : ");
+    Read(len1);
+
+    Write("Enter  Values of Array :");
+    FOR i FROM 1 TO len STEP 1  DO
+        Write("Value ", i , " :");
+        Read(set1[i]);
+    END_FOR
+
+    Write("Entre the length of the second set : ");
+    Read(len2);
+
+    Write("Enter  Values of Array :");
+    FOR i FROM 1 TO len STEP 1  DO
+        Write("Value ", i , " :");
+        Read(set2[i]);
+    END_FOR
+
+    check := FALSE;
+
+    sum := 0;
+    k := 0;
+
+    // for compiring the element of step1 with element of step2
+    FOR i FROM 0 TO len1 STEP 1  DO
+        FOR j FROM 0 TO len2 STEP 1  DO
+            IF (step1[i] = step2[j]) THEN
+                check := TRUE;
+            END_IF
+        END_FOR
+
+        IF (check = TRUE) THEN
+            arr[k] = set1[i];
+            k := k +1 ;
+        END_IF
+
+        check := FALSE;
+    END_FOR
+
+    check := FALSE;
+
+    // for compiring the element of step2 with element of step1
+    FOR i FROM 0 TO len2 STEP 1  DO
+        FOR j FROM 0 TO len1 STEP 1  DO
+            IF (step2[i] = step1[j]) THEN
+                check := TRUE;
+            END_IF
+        END_FOR
+
+        IF (check = TRUE) THEN
+            arr[k] = set2[i];
+            k := k +1 ;
+        END_IF
+
+        check := FALSE;
+    END_FOR
+
+    FOR i FROM 0 TO arr.length STEP 1  DO
+        sum := sum + arr[i];
+    END_FOR
+
+    Write("the sum is :",sum);
+
+END
+
+// Solution 2 : Hash Table
+ALGORITHM Problem_two_hashtable
+VAR
+    set1 : HASH_TABLE<INTEGER,INTEGER>;
+    set2 : HASH_TABLE<INTEGER,INTEGER>;
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+    sum , i , j , k : INTEGER:
+    check : BOOLEAN;
+BEGIN
+    check := FALSE;
+
+    set1.insert(0,12);
+	set1.insert(1,13);
+	set1.insert(2,6);
+    set1.insert(3,10);
+
+    set2.insert(0,13);
+	set2.insert(1,10);
+	set2.insert(2,16);
+    set2.insert(3,15);
+
+    WHILE (set1.lookup(i) = TRUE) DO
+        WHILE (set2.lookup(j) = TRUE) DO
+            IF (set1.get(i) = set2.get(j)) THEN
+                check := TRUE;
+            END_IF
+            j := j +1;
+        END_WHILE
+
+        IF (check = TRUE) THEN
+            htab.insert(k,set1.get(i));
+            k := k + 1;
+        END_IF
+
+        check := FALSE;
+        i := i +1;
+
+    END_WHILE
+
+    i := 0;
+    j := 0;
+
+    WHILE (set2.lookup(i) = TRUE) DO
+        WHILE (set1.lookup(j) = TRUE) DO
+            IF (set2.get(i) = set1.get(j)) THEN
+                check := TRUE;
+            END_IF
+            j := j +1;
+        END_WHILE
+
+        IF (check = TRUE) THEN
+            htab.insert(k,set2.get(i));
+            k := k + 1;
+        END_IF
+
+        check := FALSE;
+        i := i +1;
+
+    END_WHILE
+
+    i := 0;
+
+    WHILE (htab.lookup(i) = TRUE) DO
+        sum := sum + htab.get(i);
+        i := i + 1;
+    END_WHILE
+
+    Write("the sum is :",sum);
+
+END
